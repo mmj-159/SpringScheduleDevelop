@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 
-public class User {
+public class User extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
@@ -20,8 +20,9 @@ public class User {
     private String username;
     private Integer age;
 
-    public User(String password, String username) {
+    public User(String password, String username, Integer age) {
         this.password = password;
         this.username = username;
+        this.age = age;
     }
 }

@@ -10,14 +10,21 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Schedule {
+public class Schedule extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private Long scheduleId;
+    private Long Id;
+    private String author;
+    private String password;
+    private String title;
     private String content;
 
-    public Schedule(String content) {
+
+    public Schedule(String author, String password,String title, String content) {
+        this.author = author;
+        this.password = password;
+        this.title = title;
         this.content = content;
     }
 
