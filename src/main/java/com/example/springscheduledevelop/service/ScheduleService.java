@@ -70,4 +70,12 @@ public class ScheduleService {
                 schedule.getTitle(),
                 schedule.getContent());
     }
+
+    @Transactional
+    public void deleteById(Long id) {
+       if (!scheduleRepository.existsById(id)){
+            throw new IllegalArgumentException("id에 해당하는 일정이 없어서 삭제 할 수 없습니다.");
+        }
+       scheduleRepository.deleteById(id);
+    }
 }
