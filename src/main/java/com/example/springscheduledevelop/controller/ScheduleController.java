@@ -5,10 +5,7 @@ import com.example.springscheduledevelop.dto.ScheduleResponseDto;
 import com.example.springscheduledevelop.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +22,15 @@ public class ScheduleController {
     @GetMapping("/schedules")
     public List<ScheduleResponseDto> findAll(){
         return scheduleService.findAll();
+    }
+
+    @GetMapping("/schedules/{id}")
+    public ScheduleResponseDto findById(@PathVariable Long id){
+        return scheduleService.findById(id);
+    }
+
+    @PutMapping("/schedules/{id}")
+    public ScheduleResponseDto update(@PathVariable Long id, @RequestBody ScheduleRequestDto dto){
+        return scheduleService.update(id,dto);
     }
 }
