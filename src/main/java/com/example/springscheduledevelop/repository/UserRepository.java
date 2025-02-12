@@ -26,4 +26,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
                () -> new ResponseStatusException(HttpStatus.NOT_FOUND,"해당 id 없음")
        );
     }
+
+    Optional<User> findByEmail(String email);
 }

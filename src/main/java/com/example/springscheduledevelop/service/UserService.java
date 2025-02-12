@@ -62,4 +62,13 @@ public class UserService {
         }
         userRepository.deleteById(id);
     }
+
+    public User login(String email, String password) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "이메일을 찾을 수 없습니다."));
+        if (!user.getPassword().equals(password)){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"비밀번호가 일치하지 않습니다.");
+        }
+        return user;
+    }
 }

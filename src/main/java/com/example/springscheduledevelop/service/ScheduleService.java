@@ -22,13 +22,10 @@ public class ScheduleService {
     @Transactional
     public ScheduleResponseDto save(String title, String content, String username){
 
-        User finduser = userRepository.findUserByUsernameOrElseThrow(username);
+        //User finduser = userRepository.findUserByUsernameOrElseThrow(username); 문제가 많음 지금 ScheduleResponseDto 여기에 필드 추가를 안해서 그런가
 
         Schedule schedule = new Schedule(title,content);
-        schedule.setUser(finduser);
-
         Schedule savedSchedule = scheduleRepository.save(schedule);
-
         return new ScheduleResponseDto(savedSchedule.getId(),savedSchedule.getTitle(),savedSchedule.getContent());
     }
 

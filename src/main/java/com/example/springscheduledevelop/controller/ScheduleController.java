@@ -2,14 +2,16 @@ package com.example.springscheduledevelop.controller;
 
 import com.example.springscheduledevelop.dto.ScheduleRequestDto;
 import com.example.springscheduledevelop.dto.ScheduleResponseDto;
+import com.example.springscheduledevelop.entity.User;
 import com.example.springscheduledevelop.service.ScheduleService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Locale;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,7 +19,9 @@ public class ScheduleController {
     private final ScheduleService scheduleService;
 
     @PostMapping("/schedules")
-    public ResponseEntity<ScheduleResponseDto> save(@RequestBody ScheduleRequestDto scheduleRequestDto){
+    public ResponseEntity<ScheduleResponseDto> save(@RequestBody ScheduleRequestDto scheduleRequestDto){ //, HttpSession session
+       // User loginUser = (User) session.getAttribute("user");
+
        ScheduleResponseDto scheduleResponseDto =
                scheduleService.save(
                        scheduleRequestDto.getTitle(),
@@ -27,7 +31,7 @@ public class ScheduleController {
         return new ResponseEntity<>(scheduleResponseDto, HttpStatus.CREATED);
     }
 
-    @GetMapping("/schedules")
+    @GetMapping("/schedules/all")
     public List<ScheduleResponseDto> findAll(){
         return scheduleService.findAll();
     }
