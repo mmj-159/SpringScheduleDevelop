@@ -14,15 +14,19 @@ import lombok.NoArgsConstructor;
 public class User extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private Long userid;
-    private String password;
     private String username;
-    private Integer age;
+    private String password;
+    private String email;
 
-    public User(String password, String username, Integer age) {
-        this.password = password;
+    public User(String username,String password,  String email) {
         this.username = username;
-        this.age = age;
+        this.password = password;
+        this.email = email;
+    }
+
+    public void updatePassword(String newPassword) {
+        this.password = password;
     }
 }

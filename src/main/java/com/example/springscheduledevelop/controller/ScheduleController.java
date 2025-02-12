@@ -4,10 +4,12 @@ import com.example.springscheduledevelop.dto.ScheduleRequestDto;
 import com.example.springscheduledevelop.dto.ScheduleResponseDto;
 import com.example.springscheduledevelop.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,7 +18,13 @@ public class ScheduleController {
 
     @PostMapping("/schedules")
     public ResponseEntity<ScheduleResponseDto> save(@RequestBody ScheduleRequestDto scheduleRequestDto){
-        return ResponseEntity.ok(scheduleService.save(scheduleRequestDto));
+       ScheduleResponseDto scheduleResponseDto =
+               scheduleService.save(
+                       scheduleRequestDto.getTitle(),
+                       scheduleRequestDto.getContent(),
+                       scheduleRequestDto.getUsername()
+               );
+        return new ResponseEntity<>(scheduleResponseDto, HttpStatus.CREATED);
     }
 
     @GetMapping("/schedules")

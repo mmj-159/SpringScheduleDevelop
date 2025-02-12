@@ -3,25 +3,33 @@ package com.example.springscheduledevelop.service;
 import com.example.springscheduledevelop.dto.ScheduleRequestDto;
 import com.example.springscheduledevelop.dto.ScheduleResponseDto;
 import com.example.springscheduledevelop.entity.Schedule;
+import com.example.springscheduledevelop.entity.User;
 import com.example.springscheduledevelop.repository.ScheduleRepository;
+import com.example.springscheduledevelop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
+    private final UserRepository userRepository;
 
     @Transactional
-    public ScheduleResponseDto save(ScheduleRequestDto scheduleRequestDto){
-        Schedule schedule = new Schedule(scheduleRequestDto.getAuthor(), scheduleRequestDto.getPassword(), scheduleRequestDto.getTitle(),scheduleRequestDto.getContent());
+    public ScheduleResponseDto save(String title, String content, String username){
+
+        User finduser = userRepository.findUserByUsernameOrElseThrow(username);
+
+        Schedule schedule = new Schedule(title,content);
+        schedule.setUser(finduser);
+
         Schedule savedSchedule = scheduleRepository.save(schedule);
-        return new ScheduleResponseDto(savedSchedule.getId(),savedSchedule.getAuthor(),savedSchedule.getPassword(),savedSchedule.getTitle(),savedSchedule.getContent());
+
+        return new ScheduleResponseDto(savedSchedule.getId(),savedSchedule.getTitle(),savedSchedule.getContent());
     }
 
     @Transactional
@@ -32,8 +40,6 @@ public class ScheduleService {
         for (Schedule schedule : schedules) {
             dtos.add(new ScheduleResponseDto(
                     schedule.getId(),
-                    schedule.getAuthor(),
-                    schedule.getPassword(),
                     schedule.getTitle(),
                     schedule.getContent()
                     )
@@ -49,8 +55,6 @@ public class ScheduleService {
         );
         return new ScheduleResponseDto(
                 schedule.getId(),
-                schedule.getAuthor(),
-                schedule.getPassword(),
                 schedule.getTitle(),
                 schedule.getContent()
         );
@@ -62,11 +66,9 @@ public class ScheduleService {
                 () -> new IllegalArgumentException("id에 해당하는 일정 없음")
         );
 
-        schedule.update(dto.getAuthor(), dto.getPassword(), dto.getTitle(), dto.getContent());
+        schedule.update(dto.getTitle(), dto.getContent());
         return new ScheduleResponseDto(
                 schedule.getId(),
-                schedule.getAuthor(),
-                schedule.getPassword(),
                 schedule.getTitle(),
                 schedule.getContent());
     }
