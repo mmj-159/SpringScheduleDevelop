@@ -28,6 +28,7 @@
  
 # 마무리
 - 필수까지 구현하는데에도 많은 어려움이 있었습니다, 특히 인증,인가 부분에서 많이 헤메었지만 잘 해낸것 같습니다.
+- 어떤 계정으로도 로그인하면 다른 계정을 삭제할 수 있는 부분은 추가로 개발해야 할 것 같습니다.
 
 
 ## 1. 일정 API 설계하기
@@ -36,7 +37,9 @@
 | 유저 생성       | `POST`   | `/users/signup`   | 요청 body  | 등록 정보    |
 | 유저 로그인      | `POST`   | `/auth/login`     | 요청 body  | 등록 정보    |
 | 유저 로그아웃     | `POST`   | `/auth/logout`    | 요청 body  | 등록 정보    |
+| 유저 조회    | `GET`  | `/users/{id}` | 요청 param | 단건 응답 정보 |
 | 유저 비밀번호 변경  | `PATCH`   | `/users/{id}`       | 요청 body  | 등록 정보    |
+| 일정 삭제       | `DELETE` | `/users/{id}` | 요청 param | -        |
 | 새로운 일정 생성   | `POST`   | `/schedules`      | 요청 body  | 등록 정보    |
 | 일정 단건 조회    | `GET`  | `/schedules/{id}` | 요청 param | 단건 응답 정보 |
 | 일정 다건 조회    | `GET`  | `/schedules`      | 요청 param | 다건 응답 정보 |
