@@ -39,7 +39,7 @@
 | 유저 로그아웃     | `POST`   | `/auth/logout`    | 요청 body  | 등록 정보    |
 | 유저 조회    | `GET`  | `/users/{id}` | 요청 param | 단건 응답 정보 |
 | 유저 비밀번호 변경  | `PATCH`   | `/users/{id}`       | 요청 body  | 등록 정보    |
-| 일정 삭제       | `DELETE` | `/users/{id}` | 요청 param | -        |
+| 유저 삭제       | `DELETE` | `/users/{id}` | 요청 param | -        |
 | 새로운 일정 생성   | `POST`   | `/schedules`      | 요청 body  | 등록 정보    |
 | 일정 단건 조회    | `GET`  | `/schedules/{id}` | 요청 param | 단건 응답 정보 |
 | 일정 다건 조회    | `GET`  | `/schedules`      | 요청 param | 다건 응답 정보 |
